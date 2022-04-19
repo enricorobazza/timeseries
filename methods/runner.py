@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
 import os 
-from methods.preprocess import Preprocess
-from methods.ar import ar, arima
-from methods.naive import average_forecast, all_true, all_false
-from methods.lstm import lstm, stacked_lstm
-from methods.mlp import mlp
-from methods.mlp import mlp_keras
-from methods.cnn import cnn
+from .preprocess import Preprocess
+from .ar import ar, arima
+from .naive import average_forecast, all_true, all_false
+from .lstm import lstm, stacked_lstm
+from .mlp import mlp
+from .mlp import mlp_keras
+from .cnn import cnn
 import time
 
 from IPython.display import clear_output
