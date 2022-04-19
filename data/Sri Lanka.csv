@@ -1,0 +1,7 @@
+Classification,Year,Period,Period Desc.,Aggregate Level,Is Leaf Code,Trade Flow Code,Trade Flow,Reporter Code,Reporter,Reporter ISO,Partner Code,Partner,Partner ISO,2nd Partner Code,2nd Partner,2nd Partner ISO,Customs Proc. Code,Customs,Mode of Transport Code,Mode of Transport,Commodity Code,Commodity,Qty Unit Code,Qty Unit,Qty,Alt Qty Unit Code,Alt Qty Unit,Alt Qty,Netweight (kg),Gross weight (kg),Trade Value (US$),CIF Trade Value (US$),FOB Trade Value (US$),Flag
+HS,2012,201201,January 2012,0,0,1,Imports,144,Sri Lanka,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,1568887134,,,0
+HS,2012,201201,January 2012,0,0,2,Exports,144,Sri Lanka,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,866756117,,,0
+HS,2012,201201,January 2012,0,0,3,Re-exports,144,Sri Lanka,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,13020321,,,0
+HS,2012,201202,February 2012,0,0,1,Imports,144,Sri Lanka,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,1158566436,,,0
+HS,2012,201202,February 2012,0,0,2,Exports,144,Sri Lanka,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,858957048,,,0
+HS,2012,201202,February 2012,0,0,3,Re-exports,144,Sri Lanka,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,16618310,,,0

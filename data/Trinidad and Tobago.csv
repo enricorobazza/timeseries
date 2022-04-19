@@ -1,0 +1,9 @@
+Classification,Year,Period,Period Desc.,Aggregate Level,Is Leaf Code,Trade Flow Code,Trade Flow,Reporter Code,Reporter,Reporter ISO,Partner Code,Partner,Partner ISO,2nd Partner Code,2nd Partner,2nd Partner ISO,Customs Proc. Code,Customs,Mode of Transport Code,Mode of Transport,Commodity Code,Commodity,Qty Unit Code,Qty Unit,Qty,Alt Qty Unit Code,Alt Qty Unit,Alt Qty,Netweight (kg),Gross weight (kg),Trade Value (US$),CIF Trade Value (US$),FOB Trade Value (US$),Flag
+HS,2010,201001,January 2010,0,0,1,Imports,780,Trinidad and Tobago,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,513296160,,,0
+HS,2010,201001,January 2010,0,0,2,Exports,780,Trinidad and Tobago,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,604276895,,,0
+HS,2010,201001,January 2010,0,0,4,Re-imports,780,Trinidad and Tobago,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,14737,,,0
+HS,2010,201002,February 2010,0,0,1,Imports,780,Trinidad and Tobago,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,620433780,,,0
+HS,2010,201002,February 2010,0,0,2,Exports,780,Trinidad and Tobago,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,786580573,,,0
+HS,2010,201002,February 2010,0,0,4,Re-imports,780,Trinidad and Tobago,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,65642,,,0
+HS,2010,201003,March 2010,0,0,1,Imports,780,Trinidad and Tobago,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,512151558,,,0
+HS,2010,201003,March 2010,0,0,2,Exports,780,Trinidad and Tobago,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,1450951232,,,0

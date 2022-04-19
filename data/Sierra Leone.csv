@@ -1,0 +1,9 @@
+Classification,Year,Period,Period Desc.,Aggregate Level,Is Leaf Code,Trade Flow Code,Trade Flow,Reporter Code,Reporter,Reporter ISO,Partner Code,Partner,Partner ISO,2nd Partner Code,2nd Partner,2nd Partner ISO,Customs Proc. Code,Customs,Mode of Transport Code,Mode of Transport,Commodity Code,Commodity,Qty Unit Code,Qty Unit,Qty,Alt Qty Unit Code,Alt Qty Unit,Alt Qty,Netweight (kg),Gross weight (kg),Trade Value (US$),CIF Trade Value (US$),FOB Trade Value (US$),Flag
+HS,2016,201601,January 2016,0,0,1,Imports,694,Sierra Leone,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,105443478,,,0
+HS,2016,201601,January 2016,0,0,2,Exports,694,Sierra Leone,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,3439448,,,0
+HS,2016,201602,February 2016,0,0,1,Imports,694,Sierra Leone,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,9933651,,,0
+HS,2016,201602,February 2016,0,0,2,Exports,694,Sierra Leone,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,2919943,,,0
+HS,2016,201603,March 2016,0,0,1,Imports,694,Sierra Leone,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,131271389,,,0
+HS,2016,201603,March 2016,0,0,2,Exports,694,Sierra Leone,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,1368433,,,0
+HS,2016,201604,April 2016,0,0,1,Imports,694,Sierra Leone,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,97898476,,,0
+HS,2016,201604,April 2016,0,0,2,Exports,694,Sierra Leone,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,963903,,,0

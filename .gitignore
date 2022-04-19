@@ -1,0 +1,6 @@
+testing/
+models/
+data_missing/
+logs/
+.venv
+.vscode

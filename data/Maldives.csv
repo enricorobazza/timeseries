@@ -1,0 +1,25 @@
+Classification,Year,Period,Period Desc.,Aggregate Level,Is Leaf Code,Trade Flow Code,Trade Flow,Reporter Code,Reporter,Reporter ISO,Partner Code,Partner,Partner ISO,2nd Partner Code,2nd Partner,2nd Partner ISO,Customs Proc. Code,Customs,Mode of Transport Code,Mode of Transport,Commodity Code,Commodity,Qty Unit Code,Qty Unit,Qty,Alt Qty Unit Code,Alt Qty Unit,Alt Qty,Netweight (kg),Gross weight (kg),Trade Value (US$),CIF Trade Value (US$),FOB Trade Value (US$),Flag
+HS,2018,201801,January 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,239004351,,,0
+HS,2018,201801,January 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,17438803,,,0
+HS,2018,201802,February 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,231563847,,,0
+HS,2018,201802,February 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,14780472,,,0
+HS,2018,201803,March 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,284424219,,,0
+HS,2018,201803,March 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,15986470,,,0
+HS,2018,201804,April 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,232144268,,,0
+HS,2018,201804,April 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,23948104,,,0
+HS,2018,201805,May 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,221575827,,,0
+HS,2018,201805,May 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,13295831,,,0
+HS,2018,201806,June 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,230901351,,,0
+HS,2018,201806,June 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,7317622,,,0
+HS,2018,201807,July 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,260214101,,,0
+HS,2018,201807,July 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,12727588,,,0
+HS,2018,201808,August 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,258427456,,,0
+HS,2018,201808,August 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,9901548,,,0
+HS,2018,201809,September 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,236237110,,,0
+HS,2018,201809,September 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,8825162,,,0
+HS,2018,201810,October 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,241358195,,,0
+HS,2018,201810,October 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,10766551,,,0
+HS,2018,201811,November 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,258278910,,,0
+HS,2018,201811,November 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,21887847,,,0
+HS,2018,201812,December 2018,0,0,1,Imports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,266912130,,,0
+HS,2018,201812,December 2018,0,0,2,Exports,462,Maldives,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,24855067,,,0

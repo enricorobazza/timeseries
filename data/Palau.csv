@@ -1,0 +1,19 @@
+Classification,Year,Period,Period Desc.,Aggregate Level,Is Leaf Code,Trade Flow Code,Trade Flow,Reporter Code,Reporter,Reporter ISO,Partner Code,Partner,Partner ISO,2nd Partner Code,2nd Partner,2nd Partner ISO,Customs Proc. Code,Customs,Mode of Transport Code,Mode of Transport,Commodity Code,Commodity,Qty Unit Code,Qty Unit,Qty,Alt Qty Unit Code,Alt Qty Unit,Alt Qty,Netweight (kg),Gross weight (kg),Trade Value (US$),CIF Trade Value (US$),FOB Trade Value (US$),Flag
+HS,2015,201501,January 2015,0,0,1,Imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,8367337,,,0
+HS,2015,201501,January 2015,0,0,2,Exports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,1327948,,,0
+HS,2015,201502,February 2015,0,0,1,Imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,13397085,,,0
+HS,2015,201502,February 2015,0,0,2,Exports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,101355,,,0
+HS,2015,201502,February 2015,0,0,4,Re-imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,2000,,,0
+HS,2015,201501,January 2015,0,0,4,Re-imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,2000,,,0
+HS,2015,201503,March 2015,0,0,1,Imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,15838240,,,0
+HS,2015,201503,March 2015,0,0,2,Exports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,236548,,,0
+HS,2015,201503,March 2015,0,0,4,Re-imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,2022,,,0
+HS,2015,201504,April 2015,0,0,1,Imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,2854928,,,0
+HS,2015,201504,April 2015,0,0,2,Exports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,96890,,,0
+HS,2015,201504,April 2015,0,0,4,Re-imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,10,,,0
+HS,2019,201901,January 2019,0,0,2,Exports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,552476,,,0
+HS,2019,201901,January 2019,0,0,1,Imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,12774881,,,0
+HS,2019,201903,March 2019,0,0,1,Imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,14735173,,,0
+HS,2019,201903,March 2019,0,0,2,Exports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,584765,,,0
+HS,2019,201902,February 2019,0,0,1,Imports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,10884105,,,0
+HS,2019,201902,February 2019,0,0,2,Exports,585,Palau,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,809327,,,0

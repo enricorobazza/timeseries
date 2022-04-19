@@ -1,0 +1,23 @@
+Classification,Year,Period,Period Desc.,Aggregate Level,Is Leaf Code,Trade Flow Code,Trade Flow,Reporter Code,Reporter,Reporter ISO,Partner Code,Partner,Partner ISO,2nd Partner Code,2nd Partner,2nd Partner ISO,Customs Proc. Code,Customs,Mode of Transport Code,Mode of Transport,Commodity Code,Commodity,Qty Unit Code,Qty Unit,Qty,Alt Qty Unit Code,Alt Qty Unit,Alt Qty,Netweight (kg),Gross weight (kg),Trade Value (US$),CIF Trade Value (US$),FOB Trade Value (US$),Flag
+HS,2020,202001,January 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,126583995,,,0
+HS,2020,202001,January 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,114178399,,,0
+HS,2020,202002,February 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,122727332,,,0
+HS,2020,202002,February 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,89997550,,,0
+HS,2020,202003,March 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,115191226,,,0
+HS,2020,202003,March 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,68879944,,,0
+HS,2020,202007,July 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,114083072,,,0
+HS,2020,202007,July 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,59911070,,,0
+HS,2020,202005,May 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,59446981,,,0
+HS,2020,202005,May 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,92335064,,,0
+HS,2020,202006,June 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,104550481,,,0
+HS,2020,202006,June 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,64112884,,,0
+HS,2020,202004,April 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,36152790,,,0
+HS,2020,202004,April 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,1284448,,,0
+HS,2020,202008,August 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,154270373,,,0
+HS,2020,202008,August 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,66848719,,,0
+HS,2020,202010,October 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,138702261,,,0
+HS,2020,202010,October 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,88285536,,,0
+HS,2020,202011,November 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,97075016,,,0
+HS,2020,202011,November 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,37725556,,,0
+HS,2020,202012,December 2020,0,0,2,Exports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,85974072,,,0
+HS,2020,202012,December 2020,0,0,1,Imports,426,Lesotho,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,147273603,,,0

@@ -1,0 +1,12 @@
+Classification,Year,Period,Period Desc.,Aggregate Level,Is Leaf Code,Trade Flow Code,Trade Flow,Reporter Code,Reporter,Reporter ISO,Partner Code,Partner,Partner ISO,2nd Partner Code,2nd Partner,2nd Partner ISO,Customs Proc. Code,Customs,Mode of Transport Code,Mode of Transport,Commodity Code,Commodity,Qty Unit Code,Qty Unit,Qty,Alt Qty Unit Code,Alt Qty Unit,Alt Qty,Netweight (kg),Gross weight (kg),Trade Value (US$),CIF Trade Value (US$),FOB Trade Value (US$),Flag
+HS,2020,202001,January 2020,0,0,2,Exports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,,,1047773402,,,0
+HS,2018,201801,January 2018,0,0,1,Imports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,1264777030,,,0
+HS,2018,201801,January 2018,0,0,2,Exports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,853332369,,,0
+HS,2018,201801,January 2018,0,0,4,Re-imports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,6949970,,,0
+HS,2018,201802,February 2018,0,0,1,Imports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,1145015512,,,0
+HS,2018,201802,February 2018,0,0,2,Exports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,906956136,,,0
+HS,2020,202001,January 2020,0,0,1,Imports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,1383867791,,,0
+HS,2020,202002,February 2020,0,0,1,Imports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,1331731732,,,0
+HS,2020,202002,February 2020,0,0,2,Exports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,1061274938,,,0
+HS,2020,202003,March 2020,0,0,1,Imports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,1325634376,,,0
+HS,2020,202003,March 2020,0,0,2,Exports,188,Costa Rica,,0,World,,,,,,,,,TOTAL,All Commodities,,,,,,,0,,1188799458,,,0
