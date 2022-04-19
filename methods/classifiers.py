@@ -1,4 +1,4 @@
-from methods.lstm import split_sequence
+from .lstm import split_sequence
 from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
