@@ -4,3 +4,4 @@ data_missing/
 logs/
 .venv
 .vscode
+**/__pycache__/
