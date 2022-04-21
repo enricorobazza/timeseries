@@ -75,7 +75,30 @@ class Runner:
 		parent = os.path.abspath(os.path.join(parent, os.pardir))
 		return os.path.join(parent, folder)
 
-	def run(self, metric = "accuracy"):
+	def continue_run(self, run_ts, metric = "accuracy"):
+		results_folder = self.get_folder("results")
+		csv_file = os.path.join(results_folder, f"{run_ts}.csv")
+
+		if not os.path.exists(csv_file):
+			print("Run doesnt exist")
+			return
+
+		df = pd.read_csv(csv_file)
+
+		if df.shape[0] == 0:
+			print("Run is empty")
+			return
+
+		last = df.tail(1).iloc[0]
+
+		if last["model"] not in self.models:
+			print("Inconsistent models")
+			return
+
+		self.run(metric, last, run_ts)
+
+
+	def run(self, metric = "accuracy", last = None, run_ts = None):
 		
 		folder = self.get_folder("data")
 		evaluations = {}
@@ -98,9 +121,16 @@ class Runner:
 		print(f"Running only for datasets with more then {str(min_size)} rows")
 
 		files = sorted(os.listdir(folder))
-		run_ts = datetime.datetime.now().strftime("%Y%m%d%H%M")
+
+		if run_ts is None:
+			run_ts = datetime.datetime.now().strftime("%Y%m%d%H%M")
 
 		for i, file in enumerate(files):
+
+			if last is not None:
+				if file != last["file"]:
+					continue
+
 			df = pd.read_csv(os.path.join(folder, file), index_col='Period').sort_index()
 
 			if df.shape[0] < min_size:
@@ -132,6 +162,13 @@ class Runner:
 			validation = Dataset(validation_x, validation_y, validation_labels)
 
 			for model in self.models:
+				if last is not None:
+					if model != last["model"]:
+						continue
+
+				# starting from where stopped
+				last = None
+
 				func = self.models[model]
 				pred_y, model_validation_y, model_validation_labels = func(train, validation, preprocess)
 
