@@ -23,6 +23,7 @@ class Preprocess():
 
 	def create_future_column(self, df):
 		df["future"] = df["value"].shift(-self.future_period_predict)
+		df["label"] = df.index + self.future_period_predict
 		df["target"] = list(map(self.classify, df["value"], df["future"]))
 		df.drop(columns=['future'], inplace=True)
 
@@ -34,8 +35,9 @@ class Preprocess():
 	def separate_xy(self, df):
 		x = df["value"].tolist()
 		y = df["target"].tolist()
+		labels = df["label"].tolist()
 
-		return x, y
+		return x, y, labels
 
 	def evaluate(self, y, y_pred):
 		mse = 0
@@ -43,6 +45,9 @@ class Preprocess():
 		fmeasure = 0
 		roc = 0
 		periods = len(y)
+
+		if periods == 0:
+			return {"mse": mse, "accuracy": accuracy, "roc": roc, "fmeasure": fmeasure, "periods": periods}
 		
 		if not self.classification:
 			mse = mean_squared_error(y, y_pred)

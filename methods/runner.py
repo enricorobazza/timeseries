@@ -8,7 +8,9 @@ from .lstm import lstm, stacked_lstm
 from .mlp import mlp
 from .mlp import mlp_keras
 from .cnn import cnn
+from .dataset import Dataset
 import time
+import datetime
 
 from IPython.display import clear_output
 
@@ -43,42 +45,50 @@ class Runner:
 
 		return exports
 
-	def evaluate(self, models, evaluations, metric = "accuracy"):
-		def get_average_evaluation(evaluations, name, metric="accuracy"):
-			metric_sum = 0
-			metric_count = 0
+	def save_result(self, file, model, result, run_ts):
+		results_folder = self.get_folder("results")
+		csv_file = os.path.join(results_folder, f"{run_ts}.csv")
+		file_exists = os.path.exists(csv_file)
+		csv = open(csv_file, "a")
 
-			right_sum = 0
-			total_sum = 0
+		if not file_exists:
+			csv.write("y,y_pred,y_label,file,model\n")
 
-			for key in evaluations:
-				metric_count += 1
-				country = evaluations[key]
-				acc = country[metric]
-				total = country['periods']
+		y = result["true"]
+		y_pred = result["pred"]
+		y_labels = result["labels"]
+		for i in range(len(y)):
+			csv.write(f"{y[i]},{y_pred[i]},{y_labels[i]},\"{file}\",\"{model}\"\n")
 
-				right = acc * total
+		csv.close()
 
-				total_sum += total
-				right_sum += right
-				metric_sum += acc
+	def evaluate(self, preprocess, results, metric = "accuracy"):
+		for model in results:
+			y = results[model]["true"]
+			y_pred = results[model]["pred"]
+			metrics = preprocess.evaluate(y, y_pred)
+			print(f"Average sample {metric} for {model}: {metrics[metric]} for {len(y_pred)} samples\n")
 
-
-			avg = metric_sum/metric_count if metric_count != 0 else 0
-			avg_sample = right_sum/total_sum if total_sum != 0 else 0
-
-			print(f"Average country {metric} for {name}: {avg} for {metric_count} countries")
-			print(f"Average sample {metric} for {name}: {avg_sample} for {total_sum} samples\n")
-
-		for model in models:
-			get_average_evaluation(evaluations[model], model, metric)
+	def get_folder(self, folder):
+		script_path = os.path.realpath(__file__)
+		parent = os.path.abspath(os.path.join(script_path, os.pardir))
+		parent = os.path.abspath(os.path.join(parent, os.pardir))
+		return os.path.join(parent, folder)
 
 	def run(self, metric = "accuracy"):
-		folder = "data/"
+		
+		folder = self.get_folder("data")
 		evaluations = {}
+		results = {}
 
 		for model in self.models:
 			evaluations[model] = {}
+			results[model] = {
+				"true": [],
+				"pred": [],
+				"labels": [],
+				"files": {}
+			}
 
 		min_validation_size = 4
 		num_steps = 4
@@ -88,6 +98,7 @@ class Runner:
 		print(f"Running only for datasets with more then {str(min_size)} rows")
 
 		files = sorted(os.listdir(folder))
+		run_ts = datetime.datetime.now().strftime("%Y%m%d%H%M")
 
 		for i, file in enumerate(files):
 			df = pd.read_csv(os.path.join(folder, file), index_col='Period').sort_index()
@@ -95,12 +106,15 @@ class Runner:
 			if df.shape[0] < min_size:
 				continue
 
+			# if file != "Brazil.csv":
+			# 	continue
+
 			clear_output(wait=True)
 
-			self.evaluate(self.models, evaluations, metric)
-			print(f"Running {file} ({str(i)}/{str(len(files))}) with shape {str(df.shape)}")
-
 			preprocess = Preprocess()
+
+			self.evaluate(preprocess, results, metric)
+			print(f"Running {file} ({str(i)}/{str(len(files))}) with shape {str(df.shape)}")
 
 			df = self.get_df(df)
 			df = preprocess.preprocess_df(df)
@@ -111,17 +125,34 @@ class Runner:
 			df.dropna(inplace=True)
 			validation_df.dropna(inplace=True)
 
-			train_x, train_y = preprocess.separate_xy(df)
-			validation_x, validation_y = preprocess.separate_xy(validation_df)
+			train_x, train_y, train_labels = preprocess.separate_xy(df)
+			validation_x, validation_y, validation_labels = preprocess.separate_xy(validation_df)
+
+			train = Dataset(train_x, train_y, train_labels)
+			validation = Dataset(validation_x, validation_y, validation_labels)
 
 			for model in self.models:
 				func = self.models[model]
-				pred_y, model_validation_y = func(train_x, train_y, validation_x, validation_y, preprocess)
+				pred_y, model_validation_y, model_validation_labels = func(train, validation, preprocess)
+
 				if len(pred_y) == 0:
 					continue
-				evaluations[model][file] = preprocess.evaluate(model_validation_y, pred_y)
-				print(model, file, evaluations[model][file])
+
+				evaluations = preprocess.evaluate(model_validation_y, pred_y)
+
+				results[model]["true"] += list(model_validation_y)
+				results[model]["pred"] += list(pred_y)
+
+				result = {
+					"true": list(model_validation_y),
+					"pred": list(pred_y),
+					"labels": list(model_validation_labels)
+				}
+
+				self.save_result(file, model, result, run_ts)
+
+				print(model, file, evaluations)
 
 		clear_output(wait=True)
 		time.sleep(1)
-		self.evaluate(self.models, evaluations, metric)
+		self.evaluate(preprocess, results, metric)
