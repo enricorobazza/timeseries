@@ -103,6 +103,7 @@ class Runner:
 		folder = self.get_folder("data")
 		evaluations = {}
 		results = {}
+		self.errors = []
 
 		for model in self.models:
 			evaluations[model] = {}
@@ -170,7 +171,14 @@ class Runner:
 				last = None
 
 				func = self.models[model]
-				pred_y, model_validation_y, model_validation_labels = func(train, validation, preprocess)
+
+				pred_y, model_validation_y, model_validation_labels = None, None, None
+
+				try:
+					pred_y, model_validation_y, model_validation_labels = func(train, validation, preprocess)
+				except Exception as E:
+					self.errors += [[model, file, E]]
+					continue
 
 				if len(pred_y) == 0:
 					continue
@@ -193,3 +201,4 @@ class Runner:
 		clear_output(wait=True)
 		time.sleep(1)
 		self.evaluate(preprocess, results, metric)
+		print("Errors: %d"%(len(self.errors)))
