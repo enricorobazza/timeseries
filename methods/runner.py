@@ -97,6 +97,28 @@ class Runner:
 
 		self.run(metric, last, run_ts)
 
+	def run_all(self, metric = "accuracy", last = None, run_ts = None):
+		folder = self.get_folder("data")
+		evaluations = {}
+		results = {}
+		self.errors = []
+
+		for model in self.models:
+			evaluations[model] = {}
+			results[model] = {
+				"true": [],
+				"pred": [],
+				"labels": [],
+				"files": {}
+			}
+
+		files = sorted(os.listdir(folder))
+
+		for i, file in enumerate(files):
+			df = pd.read_csv(os.path.join(folder, file), index_col='Period').sort_index()
+
+
+
 
 	def run(self, metric = "accuracy", last = None, run_ts = None):
 		
@@ -152,6 +174,7 @@ class Runner:
 			df = preprocess.create_future_column(df)
 
 			validation_df = preprocess.pick_validation(df)
+			df = preprocess.pick_train(df)
 
 			df.dropna(inplace=True)
 			validation_df.dropna(inplace=True)

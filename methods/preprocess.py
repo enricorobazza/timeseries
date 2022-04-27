@@ -32,6 +32,9 @@ class Preprocess():
 	def pick_validation(self, df):
 		return df.iloc[-int(df.shape[0]*0.05):]
 
+	def pick_train(self, df):
+		return df.iloc[:-int(df.shape[0]*0.05)]
+
 	def separate_xy(self, df):
 		x = df["value"].tolist()
 		y = df["target"].tolist()
