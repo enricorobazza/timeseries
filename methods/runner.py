@@ -97,29 +97,6 @@ class Runner:
 
 		self.run(metric, last, run_ts)
 
-	def run_all(self, metric = "accuracy", last = None, run_ts = None):
-		folder = self.get_folder("data")
-		evaluations = {}
-		results = {}
-		self.errors = []
-
-		for model in self.models:
-			evaluations[model] = {}
-			results[model] = {
-				"true": [],
-				"pred": [],
-				"labels": [],
-				"files": {}
-			}
-
-		files = sorted(os.listdir(folder))
-
-		for i, file in enumerate(files):
-			df = pd.read_csv(os.path.join(folder, file), index_col='Period').sort_index()
-
-
-
-
 	def run(self, metric = "accuracy", last = None, run_ts = None):
 		
 		folder = self.get_folder("data")
@@ -147,6 +124,8 @@ class Runner:
 
 		if run_ts is None:
 			run_ts = datetime.datetime.now().strftime("%Y%m%d%H%M")
+
+		self.run_ts = run_ts
 
 		for i, file in enumerate(files):
 
