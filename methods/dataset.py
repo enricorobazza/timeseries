@@ -8,7 +8,7 @@ class Dataset:
 		self.y = y
 		self.labels = labels
 
-	def split_sequence(self, n_steps, n_features, random_seed = False):
+	def split_sequence(self, n_steps, n_features, shuffle=False, random_seed = False):
 		x_out, y_out, labels_out = list(), list(), list()
 		out = list()
 		buffer = deque(maxlen=n_steps)
@@ -17,10 +17,11 @@ class Dataset:
 			if len(buffer) == n_steps:
 				out.append([[x for x in buffer], self.y[i], self.labels[i]])
 
-		if random_seed:
-			random.shuffle(out)
-		else:
-			random.Random(42).shuffle(out)
+		if shuffle:
+			if random_seed:
+				random.shuffle(out)
+			else:
+				random.Random(42).shuffle(out)
 
 		for i in range(len(out)):
 			x_out.append(out[i][0])
