@@ -177,7 +177,8 @@ class Runner:
 			self.save_result("All.csv", model, result, run_ts)
 
 			if self.callback is not None:
-				self.callback()
+				callback = self.callback
+				callback(self)
 
 			print(model, "All.csv", evaluations)
 
@@ -295,7 +296,8 @@ class Runner:
 				print(model, file, evaluations)
 			
 			if self.callback is not None:
-				self.callback()
+				callback = self.callback
+				callback(self)
 
 		clear_output(wait=True)
 		time.sleep(1)
@@ -382,7 +384,8 @@ class Runner:
 				end = time.time()
 			
 			if self.callback is not None:
-				self.callback()
+				callback = self.callback
+				callback(self)
 
 		for file in validations:
 			validation = validations[file]
