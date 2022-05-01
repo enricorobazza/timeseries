@@ -9,12 +9,12 @@ from keras.layers.convolutional import Conv1D
 from keras.layers.convolutional import MaxPooling1D
 import tensorflow as tf
 	
-def cnn(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, epochs = 100, verbose=0):
+def cnn(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, filters = 64, kernel_size = 2, epochs = 100, verbose=0):
 	cnn_dataset = train.split_sequence(n_steps, n_features)
 	val_cnn_dataset = validation.split_sequence(n_steps, n_features)
 
 	model = Sequential()
-	model.add(Conv1D(filters=64, kernel_size=2, activation='relu', input_shape=(n_steps, n_features)))
+	model.add(Conv1D(filters=filters, kernel_size=kernel_size, activation='relu', input_shape=(n_steps, n_features)))
 	model.add(MaxPooling1D(pool_size=2))
 	model.add(Flatten())
 	model.add(Dense(50, activation='relu'))
