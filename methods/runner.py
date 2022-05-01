@@ -172,7 +172,11 @@ class Runner:
 		train = Dataset(join_train_x, join_train_y, join_train_labels)
 		validation = Dataset(join_validation_x, join_validation_y, join_validation_labels)
 
+		self.current_model = 0
+		self.total_models = len(self.models)
+
 		for model in self.models:
+			self.current_model += 1
 			func = self.models[model]
 
 			pred_y, model_validation_y, model_validation_labels = None, None, None
