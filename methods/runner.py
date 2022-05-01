@@ -28,11 +28,15 @@ class Runner:
 		return exports
 
 	def save_model(self, model, model_name, file, run_ts):
-		models_folder = self.get_folder("models")
-		model_file = os.path.join(models_folder, f"{run_ts}_{model_name}.h5")
+		models_folder = self.get_folder("models/%s"%(run_ts))
+
+		if not os.path.exists(models_folder):
+			os.makedirs(models_folder)
+
+		model_file = os.path.join(models_folder, f"{model_name}.h5")
 		model.save_weights(model_file)
 
-		status_file_name = os.path.join(models_folder, f"{run_ts}.txt")
+		status_file_name = os.path.join(models_folder, f"status.txt")
 		status_file = open(status_file_name, "w")
 
 		status_file.write(f"{model_name},{file}")
@@ -71,12 +75,12 @@ class Runner:
 		return os.path.join(parent, folder)
 
 	def continue_run_transfer(self, run_ts, metric="accuracy"):
-		models_folder = self.get_folder("models")
+		models_folder = self.get_folder("models/%s"%(run_ts))
 		for model_name in self.models:
-			model_file = os.path.join(models_folder, f"{run_ts}_{model_name}.h5")
+			model_file = os.path.join(models_folder, f"{model_name}.h5")
 			self.models[model_name] = functools.partial(self.models[model_name], weights_file=model_file)
 
-		status_file_name = os.path.join(models_folder, f"{run_ts}.txt")
+		status_file_name = os.path.join(models_folder, f"status.txt")
 		status_file = open(status_file_name, "r")
 
 		status = status_file.read().split(",")
@@ -374,7 +378,10 @@ class Runner:
 			if df.shape[0] < min_size:
 				continue
 
-			if "file" in last and last["file"] != file:
+			is_not_last_file = "file" in last and last["file"] != file
+			have_validation = file in validations
+
+			if is_not_last_file and have_validation:
 				continue
 
 			clear_output(wait=True)
@@ -397,6 +404,9 @@ class Runner:
 			train = Dataset(train_x, train_y, train_labels)
 			validation = Dataset(validation_x, validation_y, validation_labels)
 			validations[file] = validation
+
+			if is_not_last_file:
+				continue
 
 			for model in self.models:
 				# starting from where stopped
