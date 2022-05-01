@@ -355,6 +355,9 @@ class Runner:
 
 		files = sorted(os.listdir(folder))
 
+		self.total_countries = len(files)
+		self.current_country = 0
+
 		if run_ts is None:
 			run_ts = datetime.datetime.now().strftime("%Y%m%d%H%M")
 
@@ -363,6 +366,8 @@ class Runner:
 		self.run_ts = run_ts
 
 		for i, file in enumerate(files):
+
+			self.current_country += 1
 
 			df = pd.read_csv(os.path.join(folder, file), index_col='Period').sort_index()
 
