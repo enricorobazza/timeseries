@@ -4,7 +4,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, LSTM, BatchNormalization
 import tensorflow as tf
 
-def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, epochs = 100, verbose=0, cells = 50, layers = 1, to_train = True, to_validate = True, model = None):
+def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, epochs = 100, verbose=0, cells = 50, layers = 1, to_train = True, to_validate = True, model = None, weights_file = None):
 	lstm_dataset = train.split_sequence(n_steps, n_features)
 	val_lstm_dataset = validation.split_sequence(n_steps, n_features)
 
@@ -33,12 +33,19 @@ def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_fe
 		if classification:
 			opt = tf.keras.optimizers.Adam(learning_rate=0.001, decay=1e-6)
 			model.add(Dense(2, activation='softmax'))
+
+			if weights_file is not None:
+				model.load_weights(weights_file)
+
 			model.compile(
 				loss='sparse_categorical_crossentropy',
 				optimizer=opt,
 				metrics=['accuracy']
 			)
 		else:
+			if weights_file is not None:
+				model.load_weights(weights_file)
+				
 			model.compile(optimizer='adam', loss='mse')
 
 	if to_train:

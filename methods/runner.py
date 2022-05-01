@@ -1,16 +1,10 @@
 import pandas as pd
-import numpy as np
 import os 
 from .preprocess import Preprocess
-from .ar import ar, arima
-from .naive import average_forecast, all_true, all_false
-from .lstm import lstm
-from .mlp import mlp
-from .mlp import mlp_keras
-from .cnn import cnn
 from .dataset import Dataset
 import time
 import datetime
+import functools
 
 from IPython.display import clear_output
 
@@ -32,6 +26,17 @@ class Runner:
 		imports.drop(columns=["Trade Flow"], inplace=True)
 
 		return exports
+
+	def save_model(self, model, model_name, file, run_ts):
+		models_folder = self.get_folder("models")
+		model_file = os.path.join(models_folder, f"{run_ts}_{model_name}.h5")
+		model.save_weights(model_file)
+
+		status_file_name = os.path.join(models_folder, f"{run_ts}.txt")
+		status_file = open(status_file_name, "w")
+
+		status_file.write(f"{model_name},{file}")
+		status_file.close()
 
 	def save_result(self, file, model, result, run_ts):
 		results_folder = self.get_folder("results")
@@ -65,6 +70,20 @@ class Runner:
 		parent = os.path.abspath(os.path.join(parent, os.pardir))
 		return os.path.join(parent, folder)
 
+	def continue_run_transfer(self, run_ts, metric="accuracy"):
+		models_folder = self.get_folder("models")
+		for model_name in self.models:
+			model_file = os.path.join(models_folder, f"{run_ts}_{model_name}.h5")
+			self.models[model_name] = functools.partial(self.models[model_name], weights_file=model_file)
+
+		status_file_name = os.path.join(models_folder, f"{run_ts}.txt")
+		status_file = open(status_file_name, "r")
+
+		status = status_file.read().split(",")
+		last = {"model": status[0], "file": status[1]}
+
+		self.run_transfer(metric, last, run_ts)
+
 	def continue_run(self, run_ts, metric = "accuracy"):
 		results_folder = self.get_folder("results")
 		csv_file = os.path.join(results_folder, f"{run_ts}.csv")
@@ -92,6 +111,11 @@ class Runner:
 		evaluations = {}
 		results = {}
 		self.errors = []
+
+		if run_ts is None:
+			run_ts = datetime.datetime.now().strftime("%Y%m%d%H%M")
+
+		self.run_ts = run_ts
 
 		min_validation_size = 4
 		num_steps = 4
@@ -174,7 +198,7 @@ class Runner:
 				"time": end - start
 			}
 
-			self.save_result("All.csv", model, result, run_ts)
+			self.save_result("All.csv", model, result, self.run_ts)
 
 			if self.callback is not None:
 				callback = self.callback
@@ -304,7 +328,7 @@ class Runner:
 		self.evaluate(preprocess, results, metric)
 		print("Errors: %d"%(len(self.errors)))
 
-	def run_transfer(self, metric = "accuracy"):
+	def run_transfer(self, metric = "accuracy", last = {}, run_ts = None):
 		folder = self.get_folder("data")
 		evaluations = {}
 		results = {}
@@ -331,7 +355,8 @@ class Runner:
 
 		files = sorted(os.listdir(folder))
 
-		run_ts = datetime.datetime.now().strftime("%Y%m%d%H%M")
+		if run_ts is None:
+			run_ts = datetime.datetime.now().strftime("%Y%m%d%H%M")
 
 		preprocess = Preprocess()
 
@@ -344,7 +369,7 @@ class Runner:
 			if df.shape[0] < min_size:
 				continue
 
-			if file != "Brazil.csv":
+			if "file" in last and last["file"] != file:
 				continue
 
 			clear_output(wait=True)
@@ -370,19 +395,23 @@ class Runner:
 
 			for model in self.models:
 				# starting from where stopped
+				if "model" in last and last["model"] != model:
+					continue
+
+				# skipping last model
+				if "model" in last:
+					last = {}
+					continue
 
 				func = self.models[model]
 
-				start = time.time()
-
 				try:
 					self.saved_models[model] = func(train, validation, preprocess, to_validate = False, model = self.saved_models[model])
+					self.save_model(self.saved_models[model], model, file, self.run_ts)
 				except Exception as E:
 					self.errors += [[model, file, E]]
 					continue
 
-				end = time.time()
-			
 			if self.callback is not None:
 				callback = self.callback
 				callback(self)
@@ -403,7 +432,7 @@ class Runner:
 					"true": list(model_validation_y),
 					"pred": list(pred_y),
 					"labels": list(model_validation_labels),
-					"time": end - start
+					"time": 0
 				}
 
 				results[model]["true"] += list(model_validation_y)
