@@ -88,7 +88,7 @@ class Runner:
 
 		self.run_transfer(metric, last, run_ts)
 
-	def continue_run(self, run_ts, metric = "accuracy"):
+	def continue_run(self, run_ts, metric = "accuracy", all=False):
 		results_folder = self.get_folder("results")
 		csv_file = os.path.join(results_folder, f"{run_ts}.csv")
 
@@ -108,7 +108,10 @@ class Runner:
 			print("Inconsistent models")
 			return
 
-		self.run(metric, last, run_ts)
+		if all:
+			self.run_all(metric, last, run_ts)
+		else:
+			self.run(metric, last, run_ts)
 
 	def run_all(self, metric = "accuracy", last = None, run_ts = None):
 		folder = self.get_folder("data")
@@ -177,6 +180,14 @@ class Runner:
 
 		for model in self.models:
 			self.current_model += 1
+
+			if last is not None:
+				if model != last["model"]:
+					continue
+				else:
+					last = None
+					continue
+
 			func = self.models[model]
 
 			pred_y, model_validation_y, model_validation_labels = None, None, None
