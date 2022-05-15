@@ -4,7 +4,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, LSTM, BatchNormalization
 import tensorflow as tf
 
-def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, epochs = 100, verbose=0, cells = 50, layers = 1, to_train = True, to_validate = True, model = None, weights_file = None, transfer=False):
+def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, epochs = 100, verbose=0, cells = 50, layers = 1, to_train = True, to_validate = True, model = None, weights_file = None, transfer=False, n_classes = 2):
 	lstm_dataset = train.split_sequence(n_steps, n_features)
 	val_lstm_dataset = validation.split_sequence(n_steps, n_features)
 
@@ -52,7 +52,7 @@ def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_fe
 
 		if classification:
 			opt = tf.keras.optimizers.Adam(learning_rate=0.001, decay=1e-6)
-			model.add(Dense(2, activation='softmax'))
+			model.add(Dense(n_classes, activation='softmax'))
 
 			if old_weights is not None: # Only happens when model is not None, so doesn't happen the first time
 				model.set_weights(old_weights)

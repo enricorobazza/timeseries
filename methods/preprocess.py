@@ -2,11 +2,21 @@ from sklearn import preprocessing
 from sklearn.metrics import accuracy_score, roc_auc_score, mean_squared_error, f1_score
 
 class Preprocess():
-	def __init__(self, future_period_predict = 1, classification = True):
+	def __init__(self, future_period_predict = 1, classification = True, delta_separator = None):
 		self.future_period_predict = future_period_predict
 		self.classification = classification
+		self.delta = delta_separator
 
 	def classify(self, current, future):
+		if self.delta is not None:
+			pct_change = future/current - 1
+			if pct_change > self.delta:
+				return 1
+			elif  pct_change < -self.delta:
+				return -1
+			else:
+				return 0
+
 		if not self.classification:
 			return future
 		if float(future) > float(current):

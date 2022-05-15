@@ -12,9 +12,10 @@ pd.options.mode.chained_assignment = None  # default='warn'
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 class Runner:
-	def __init__(self, models, callback = None):
+	def __init__(self, models, callback = None, n_classes = 2):
 		self.models = models
 		self.callback = callback
+		self.n_classes = n_classes
 
 	def get_df(self, df):
 		df = df[["Trade Flow", "Trade Value (US$)"]]
@@ -113,7 +114,7 @@ class Runner:
 		else:
 			self.run(metric, last, run_ts)
 
-	def run_all(self, metric = "accuracy", last = None, run_ts = None):
+	def run_all(self, metric = "accuracy", last = None, run_ts = None, delta_separator = None):
 		folder = self.get_folder("data")
 		evaluations = {}
 		results = {}
@@ -141,7 +142,7 @@ class Runner:
 
 		files = sorted(os.listdir(folder))
 
-		preprocess = Preprocess()
+		preprocess = Preprocess(delta_separator = delta_separator)
 
 		join_train_x, join_train_y, join_train_labels = [], [], []
 		join_validation_x, join_validation_y, join_validation_labels = [], [], []
@@ -162,16 +163,6 @@ class Runner:
 			df.dropna(inplace=True)
 			validation_df.dropna(inplace=True)
 
-			# def find_13(df):
-			# 	last = df.index.astype('str').str[-2:]
-			# 	return last[last=="13"]
-
-			# if len(find_13(df)) > 0:
-			# 	print(file)
-
-			# else:
-			# 	continue
-
 			train_x, train_y, train_labels = preprocess.separate_xy(df)
 			validation_x, validation_y, validation_labels = preprocess.separate_xy(validation_df)
 
@@ -188,8 +179,6 @@ class Runner:
 
 		self.current_model = 0
 		self.total_models = len(self.models)
-
-		return
 
 		for model in self.models:
 			self.current_model += 1
@@ -238,7 +227,7 @@ class Runner:
 
 			print(model, "All.csv", evaluations)
 
-	def run(self, metric = "accuracy", last = None, run_ts = None):
+	def run(self, metric = "accuracy", last = None, run_ts = None, delta_separator = None):
 		
 		folder = self.get_folder("data")
 		evaluations = {}
@@ -271,6 +260,8 @@ class Runner:
 
 		self.run_ts = run_ts
 
+		preprocess = Preprocess(delta_separator = delta_separator)
+
 		for i, file in enumerate(files):
 
 			self.current_country += 1
@@ -289,7 +280,6 @@ class Runner:
 
 			clear_output(wait=True)
 
-			preprocess = Preprocess()
 
 			self.evaluate(preprocess, results, metric)
 			print(f"Running {file} ({str(i)}/{str(len(files))}) with shape {str(df.shape)}")
@@ -360,7 +350,7 @@ class Runner:
 		self.evaluate(preprocess, results, metric)
 		print("Errors: %d"%(len(self.errors)))
 
-	def run_transfer(self, metric = "accuracy", last = {}, run_ts = None):
+	def run_transfer(self, metric = "accuracy", last = {}, run_ts = None, delta_separator = None):
 		folder = self.get_folder("data")
 		evaluations = {}
 		results = {}
@@ -393,7 +383,7 @@ class Runner:
 		if run_ts is None:
 			run_ts = datetime.datetime.now().strftime("%Y%m%d%H%M")
 
-		preprocess = Preprocess()
+		preprocess = Preprocess(delta_separator = delta_separator)
 
 		self.run_ts = run_ts
 
