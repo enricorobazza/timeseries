@@ -4,28 +4,48 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, LSTM, BatchNormalization
 import tensorflow as tf
 
-def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, epochs = 100, verbose=0, cells = 50, layers = 1, to_train = True, to_validate = True, model = None, weights_file = None):
+def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, epochs = 100, verbose=0, cells = 50, layers = 1, to_train = True, to_validate = True, model = None, weights_file = None, transfer=False):
 	lstm_dataset = train.split_sequence(n_steps, n_features)
 	val_lstm_dataset = validation.split_sequence(n_steps, n_features)
 
-	if model is None:
+	if model is None or transfer:
+		old_weights = None
+		if transfer and model is not None:
+			old_weights = model.get_weights()
+
 		model = Sequential()
 
-		if layers == 1:
-			model.add(LSTM(cells, input_shape=(n_steps, n_features)))
+		params = {}
+
+		if layers != 1:
+			params["return_sequences"] = True
+
+		if transfer:
+			params["stateful"] = True
+			params["batch_input_shape"] = (len(lstm_dataset.x), n_steps, n_features)
+
+			if not to_train and to_validate:
+				params["batch_input_shape"] = (len(val_lstm_dataset.x), n_steps, n_features)
+
 		else:
-			model.add(LSTM(cells, input_shape=(n_steps, n_features), return_sequences = True))
+			params["input_shape"] = (n_steps, n_features)
+
+		model.add(LSTM(cells, **params))
+
+		if not transfer:
+			del params["input_shape"]
 
 		if layers > 2:
 			model.add(LSTM(cells, kernel_initializer='glorot_uniform', 
-				activation = 'relu',
-				return_sequences=True))
+				activation = 'relu', **params))
 			model.add(Dropout(0.2))
 			model.add(BatchNormalization())
 
 		if layers > 1:
+			del params["return_sequences"]
+
 			model.add(LSTM(cells, kernel_initializer='glorot_uniform', 
-				activation = 'relu'
+				activation = 'relu', **params
 			))
 			model.add(Dropout(0.1))
 			model.add(BatchNormalization())
@@ -34,7 +54,10 @@ def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_fe
 			opt = tf.keras.optimizers.Adam(learning_rate=0.001, decay=1e-6)
 			model.add(Dense(2, activation='softmax'))
 
-			if weights_file is not None:
+			if old_weights is not None: # Only happens when model is not None, so doesn't happen the first time
+				model.set_weights(old_weights)
+
+			elif weights_file is not None: # Only happens the first time the model loads, after that model is not None
 				model.load_weights(weights_file)
 
 			model.compile(
@@ -43,7 +66,10 @@ def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_fe
 				metrics=['accuracy']
 			)
 		else:
-			if weights_file is not None:
+			if old_weights is not None: # Only happens when model is not None, so doesn't happen the first time
+				model.set_weights(old_weights)
+
+			elif weights_file is not None: # Only happens the first time the model loads, after that model is not None
 				model.load_weights(weights_file)
 				
 			model.compile(optimizer='adam', loss='mse')

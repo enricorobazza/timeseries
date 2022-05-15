@@ -23,7 +23,21 @@ class Preprocess():
 
 	def create_future_column(self, df):
 		df["future"] = df["value"].shift(-self.future_period_predict)
-		df["label"] = df.index + self.future_period_predict
+
+		def get_label(period):
+			period = str(period)
+			year = int(period[:-2])
+			month = int(period[-2:])
+			month += self.future_period_predict
+
+			if month > 12:
+				year += 1
+				month = month - 12
+
+			return int("%d%02d"%(year, month))
+
+		df["label"] = df.index
+		df["label"] = df["label"].apply(get_label)
 		df["target"] = list(map(self.classify, df["value"], df["future"]))
 		df.drop(columns=['future'], inplace=True)
 

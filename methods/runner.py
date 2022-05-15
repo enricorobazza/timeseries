@@ -124,7 +124,8 @@ class Runner:
 
 		self.run_ts = run_ts
 
-		min_validation_size = 4
+		# min_validation_size = 4
+		min_validation_size = 8
 		num_steps = 4
 		validation_split = 0.05
 		min_size = min_validation_size * (num_steps - 1) / validation_split
@@ -161,6 +162,16 @@ class Runner:
 			df.dropna(inplace=True)
 			validation_df.dropna(inplace=True)
 
+			# def find_13(df):
+			# 	last = df.index.astype('str').str[-2:]
+			# 	return last[last=="13"]
+
+			# if len(find_13(df)) > 0:
+			# 	print(file)
+
+			# else:
+			# 	continue
+
 			train_x, train_y, train_labels = preprocess.separate_xy(df)
 			validation_x, validation_y, validation_labels = preprocess.separate_xy(validation_df)
 
@@ -177,6 +188,8 @@ class Runner:
 
 		self.current_model = 0
 		self.total_models = len(self.models)
+
+		return
 
 		for model in self.models:
 			self.current_model += 1
