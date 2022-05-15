@@ -1,5 +1,6 @@
 from sklearn import preprocessing
 from sklearn.metrics import accuracy_score, roc_auc_score, mean_squared_error, f1_score
+import tensorflow as tf
 
 class Preprocess():
 	def __init__(self, future_period_predict = 1, classification = True, delta_separator = None):
@@ -7,15 +8,45 @@ class Preprocess():
 		self.classification = classification
 		self.delta = delta_separator
 
+	def get_key(self, row):
+		return ','.join([str(int(x)) for x in row])
+
+	def from_categorical(self, val_dataset, mapping):
+		new_y = []
+		for i in range(len(val_dataset.y)):
+			key = self.get_key(val_dataset.y[i])
+			new_y.append(mapping[key])
+
+		val_dataset.y = new_y
+		return val_dataset
+
+	def to_categorical(self, dataset, val_dataset, n_classes):
+		old_y = dataset.y
+		dataset.y = tf.keras.utils.to_categorical(dataset.y, num_classes=n_classes)
+		val_dataset.y = tf.keras.utils.to_categorical(val_dataset.y, num_classes=n_classes)
+
+		mapping = {}
+
+		for i in range(len(dataset.y)):
+			key = self.get_key(dataset.y[i])
+
+			if key in mapping:
+				continue
+
+			mapping[key] = old_y[i]
+
+		return dataset, val_dataset, mapping
+
+
 	def classify(self, current, future):
 		if self.delta is not None:
 			pct_change = future/current - 1
 			if pct_change > self.delta:
-				return 1
+				return 2
 			elif  pct_change < -self.delta:
-				return -1
-			else:
 				return 0
+			else:
+				return 1
 
 		if not self.classification:
 			return future
@@ -88,7 +119,7 @@ class Preprocess():
 			except:
 				pass
 			try:
-				fmeasure = f1_score(y, y_pred)
+				fmeasure = f1_score(y, y_pred, average = 'weighted')
 			except:
 				pass
 			

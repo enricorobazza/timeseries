@@ -8,6 +8,9 @@ def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_fe
 	lstm_dataset = train.split_sequence(n_steps, n_features)
 	val_lstm_dataset = validation.split_sequence(n_steps, n_features)
 
+	if n_classes > 2:
+		lstm_dataset, val_lstm_dataset, mapping = preprocess.to_categorical(lstm_dataset, val_lstm_dataset, n_classes)
+
 	if model is None:
 		model = Sequential()
 
@@ -37,8 +40,12 @@ def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_fe
 			if weights_file is not None:
 				model.load_weights(weights_file)
 
+			loss = 'sparse_categorical_crossentropy'
+			if n_classes != 2:
+				loss = 'categorical_crossentropy'
+
 			model.compile(
-				loss='sparse_categorical_crossentropy',
+				loss=loss,
 				optimizer=opt,
 				metrics=['accuracy']
 			)
@@ -58,6 +65,8 @@ def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_fe
 
 	if not to_validate:
 		return model
+
+	val_lstm_dataset = preprocess.from_categorical(val_lstm_dataset, mapping)
 
 	return lstm_pred, val_lstm_dataset.y, val_lstm_dataset.labels
 
