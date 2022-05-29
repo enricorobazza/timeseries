@@ -125,8 +125,8 @@ class Runner:
 
 		self.run_ts = run_ts
 
-		# min_validation_size = 4
-		min_validation_size = 8
+		min_validation_size = 4
+		# min_validation_size = 8
 		num_steps = 4
 		validation_split = 0.05
 		min_size = min_validation_size * (num_steps - 1) / validation_split
