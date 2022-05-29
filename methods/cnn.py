@@ -7,7 +7,6 @@ from keras.layers import Dense
 from keras.layers import Flatten
 from keras.layers.convolutional import Conv1D
 from keras.layers.convolutional import MaxPooling1D
-import tensorflow as tf
 	
 def cnn(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, filters = 64, kernel_size = 2, epochs = 100, verbose=0):
 	cnn_dataset = train.split_sequence(n_steps, n_features)

@@ -1,5 +1,4 @@
 
-import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, LSTM, BatchNormalization
 import tensorflow as tf

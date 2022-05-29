@@ -1,5 +1,4 @@
 from collections import deque
-import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
 import tensorflow as tf
