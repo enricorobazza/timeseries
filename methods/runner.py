@@ -114,7 +114,7 @@ class Runner:
 		else:
 			self.run(metric, last, run_ts)
 
-	def run_all(self, metric = "accuracy", last = None, run_ts = None, delta_separator = None):
+	def run_all(self, metric = "accuracy", last = None, run_ts = None, delta_separator = None, min_validation_size = 4):
 		folder = self.get_folder("data")
 		evaluations = {}
 		results = {}
@@ -125,7 +125,6 @@ class Runner:
 
 		self.run_ts = run_ts
 
-		min_validation_size = 4
 		# min_validation_size = 8
 		num_steps = 4
 		validation_split = 0.05
