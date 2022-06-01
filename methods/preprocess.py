@@ -106,7 +106,7 @@ class Preprocess():
 
 		if periods == 0:
 			return {"mse": mse, "accuracy": accuracy, "roc": roc, "fmeasure": fmeasure, "periods": periods}
-		
+
 		if not self.classification:
 			mse = mean_squared_error(y, y_pred)
 		else:
@@ -115,7 +115,12 @@ class Preprocess():
 			except:
 				pass
 			try:
-				roc = roc_auc_score(y, y_pred)
+				if len(set(y)) > 2:
+					y_multi = tf.keras.utils.to_categorical(y, num_classes=len(set(y)))
+					y_pred_multi = tf.keras.utils.to_categorical(y_pred, num_classes=len(set(y)))
+					roc = roc_auc_score(y_multi, y_pred_multi, multi_class = "ovo", average = "macro")
+				else:
+					roc = roc_auc_score(y, y_pred)
 			except:
 				pass
 			try:
