@@ -64,7 +64,7 @@ class Preprocess():
 				return 1
 		if not self.classification:
 			return future
-		if float(future) > 0:
+		if float(future) >= 0:
 			return 1
 		return 0
 	
