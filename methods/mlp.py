@@ -10,8 +10,10 @@ import datetime
 from sklearn.metrics import accuracy_score, roc_auc_score, mean_squared_error, f1_score
 
 def mlp(train, validation, preprocess, n_steps = 4, n_features = 1):
-	mlp_dataset = train.split_sequence(n_steps, n_features)
-	val_mlp_dataset = validation.split_sequence(n_steps, n_features)
+	# mlp_dataset = train.split_sequence(n_steps, n_features)
+	# val_mlp_dataset = validation.split_sequence(n_steps, n_features)
+	mlp_dataset = train
+	val_mlp_dataset = validation
 
 	max_iter = 3000
 	# max_iter = 300
@@ -27,8 +29,10 @@ def mlp(train, validation, preprocess, n_steps = 4, n_features = 1):
 	return mlp_pred, val_mlp_dataset.y, val_mlp_dataset.labels
 
 def mlp_keras(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, epochs = 100, verbose=0, layers = 3, cells = 100):
-	mlp_dataset = train.split_sequence(n_steps, n_features)
-	val_mlp_dataset = validation.split_sequence(n_steps, n_features)
+	# mlp_dataset = train.split_sequence(n_steps, n_features)
+	# val_mlp_dataset = validation.split_sequence(n_steps, n_features)
+	mlp_dataset = train
+	val_mlp_dataset = validation
 
 	model = Sequential()
 	model.add(Dense(200, input_shape=(n_steps,), kernel_initializer='glorot_uniform', activation = 'relu'))

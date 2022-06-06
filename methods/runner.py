@@ -5,6 +5,7 @@ from .dataset import Dataset
 import time
 import datetime
 import functools
+import numpy as np
 
 from IPython.display import clear_output
 
@@ -67,7 +68,8 @@ class Runner:
 			y = results[model]["true"]
 			y_pred = results[model]["pred"]
 			metrics = preprocess.evaluate(y, y_pred)
-			print(f"Average sample {metric} for {model}: {metrics[metric]} for {len(y_pred)} samples\n")
+			print(metrics)
+			# print(f"Average sample {metric} for {model}: {metrics[metric]} for {len(y_pred)} samples\n")
 
 	def get_folder(self, folder):
 		script_path = os.path.realpath(__file__)
@@ -143,13 +145,16 @@ class Runner:
 
 		preprocess = Preprocess(delta_separator = delta_separator)
 
-		join_train_x, join_train_y, join_train_labels = [], [], []
-		join_validation_x, join_validation_y, join_validation_labels = [], [], []
+		join_train = Dataset(np.array([]), np.array([]), np.array([]))
+		join_validation = Dataset(np.array([]), np.array([]), np.array([]))
 
 		for i, file in enumerate(files):
 			df = pd.read_csv(os.path.join(folder, file), index_col='Period').sort_index()
 
 			if df.shape[0] < min_size:
+				continue
+
+			if file != "Antigua and Barbuda.csv" and file != "Argentina.csv":
 				continue
 
 			df = self.get_df(df)
@@ -165,16 +170,15 @@ class Runner:
 			train_x, train_y, train_labels = preprocess.separate_xy(df)
 			validation_x, validation_y, validation_labels = preprocess.separate_xy(validation_df)
 
-			join_train_x += train_x
-			join_train_y += train_y
-			join_train_labels += train_labels
+			train = Dataset(train_x, train_y, train_labels).split_sequence(4, 1)
+			validation = Dataset(validation_x, validation_y, validation_labels).split_sequence(4, 1)
 
-			join_validation_x += validation_x
-			join_validation_y += validation_y
-			join_validation_labels += validation_labels
+			join_train += train
 
-		train = Dataset(join_train_x, join_train_y, join_train_labels)
-		validation = Dataset(join_validation_x, join_validation_y, join_validation_labels)
+			join_validation += validation
+
+		train = join_train.shuffle()
+		validation = join_validation.shuffle()
 
 		self.current_model = 0
 		self.total_models = len(self.models)
@@ -274,6 +278,9 @@ class Runner:
 			if df.shape[0] < min_size:
 				continue
 
+			if file != "Antigua and Barbuda.csv" and file != "Argentina.csv":
+				continue
+
 			# if file != "Brazil.csv":
 			# 	continue
 
@@ -296,8 +303,8 @@ class Runner:
 			train_x, train_y, train_labels = preprocess.separate_xy(df)
 			validation_x, validation_y, validation_labels = preprocess.separate_xy(validation_df)
 
-			train = Dataset(train_x, train_y, train_labels)
-			validation = Dataset(validation_x, validation_y, validation_labels)
+			train = Dataset(train_x, train_y, train_labels).split_sequence(4, 1)
+			validation = Dataset(validation_x, validation_y, validation_labels).split_sequence(4, 1)
 
 			for model in self.models:
 				if last is not None:

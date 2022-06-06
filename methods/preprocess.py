@@ -38,7 +38,7 @@ class Preprocess():
 		return dataset, val_dataset, mapping
 
 
-	def old_classify(self, current, future):
+	def classify(self, current, future):
 		if self.delta is not None:
 			pct_change = future/current - 1
 			if pct_change > self.delta:
@@ -53,21 +53,6 @@ class Preprocess():
 		if float(future) > float(current):
 			return 1
 		return 0
-
-	def classify(self, current, future):
-		if self.delta is not None:
-			if future > self.delta:
-				return 2
-			elif  future < -self.delta:
-				return 0
-			else:
-				return 1
-		if not self.classification:
-			return future
-		if float(future) >= 0:
-			return 1
-		return 0
-	
 
 	def preprocess_df(self, df, derivs = 1):
 		for i in range(derivs):

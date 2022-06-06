@@ -4,8 +4,10 @@ from tensorflow.keras.layers import Dense, Dropout, LSTM, BatchNormalization
 import tensorflow as tf
 
 def lstm(train, validation, preprocess, classification = True, n_steps = 4, n_features = 1, epochs = 100, verbose=0, cells = 50, layers = 1, to_train = True, to_validate = True, model = None, weights_file = None, n_classes = 2):
-	lstm_dataset = train.split_sequence(n_steps, n_features)
-	val_lstm_dataset = validation.split_sequence(n_steps, n_features)
+	# lstm_dataset = train.split_sequence(n_steps, n_features)
+	# val_lstm_dataset = validation.split_sequence(n_steps, n_features)
+	lstm_dataset = train
+	val_lstm_dataset = validation
 	mapping = None
 
 	if n_classes > 2:
