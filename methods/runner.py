@@ -154,9 +154,6 @@ class Runner:
 			if df.shape[0] < min_size:
 				continue
 
-			if file != "Antigua and Barbuda.csv" and file != "Argentina.csv":
-				continue
-
 			df = self.get_df(df)
 			df = preprocess.preprocess_df(df)
 			df = preprocess.create_future_column(df)
@@ -276,9 +273,6 @@ class Runner:
 			df = pd.read_csv(os.path.join(folder, file), index_col='Period').sort_index()
 
 			if df.shape[0] < min_size:
-				continue
-
-			if file != "Antigua and Barbuda.csv" and file != "Argentina.csv":
 				continue
 
 			# if file != "Brazil.csv":
